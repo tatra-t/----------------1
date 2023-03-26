@@ -1,9 +1,9 @@
 body {
     font-family: 'Inconsolata', monospace;
-    font-size: 24px;
+    font-size: 20px;
 }
 input {
-    width: 200px;
+    width: 65%;
     height: 50px;
     border: solid 1px white;
     border-radius: 3px;
@@ -11,24 +11,37 @@ input {
 
 select,
 .btn {
-    width: 180px;
+    width: 70%;
     height: 50px;
-    font-size: 25px;
+    font-size: 20px;
     text-transform: uppercase;
 }
 .accordion-button:not(.collapsed){
     color: white;
     background-color: #212529;
-    font-size: 40px;
+    font-size: 30px;
 }
 .accordion-button {
-    font-size: 40px;
+    font-size: 30px;
     
 }
 .accordion-button:focus {
     border-color: white;
 }
 .form-select {
-    font-size: 25px;
+    font-size: 20px;
     text-transform: uppercase;
+}
+.result {
+    background-color: white;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    display: none;
+}
+@media (max-width: 375px) {
+ body {
+    font-size: 12px;
+ }   
 }

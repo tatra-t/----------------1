@@ -20,15 +20,15 @@
                 <br> Choose the dates and what you want to calculate and then I will do it ;)</p>
                 <div class="col-sm-3 ">
                     <span class="text-light me-2">START</span>
-                <input class = "bg-dark text-light " type="date" name="" id="">
+                <input class = "bg-dark text-light mt-3 mb-3 start " type="date" name="" id="">
 
             </div>
             <div class="col-sm-3">
-                <span class="text-light me-2">END</span>
-                <input class="bg-dark text-light " type="date" name="" id="">
+                <span class="text-light me-4"> END </span>
+                <input class="bg-dark text-light mt-3 mb-3 end" type="date" name="" id="">
             </div>
             <div class="col-sm-2">
-                <select class="form-select form-select-sm bg-dark text-light" aria-label=".form-select-sm example">
+                <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light" aria-label=".form-select-sm example">
                     <option selected>choose days</option>
                     <option value="1">all days</option>
                     <option value="2">weekdays</option>
@@ -36,7 +36,7 @@
                 </select>
             </div>
             <div class="col-sm-2">
-                <select class="form-select form-select-sm bg-dark text-light" aria-label=".form-select-sm example">
+                <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light dimension" aria-label=".form-select-sm example">
                     <option selected>what to calculate</option>
                     <option value="1">days</option>
                     <option value="2">hours</option>
@@ -45,11 +45,15 @@
                 </select>
             </div>
             <div class="col-sm-2 ">
-                <button type="button" class="btn btn-outline-light">Calculate</button>
+                <button type="button" class="btn btn-outline-light mt-3 mb-3">Calculate</button>
             </div>
             <br>
             <br>
             <br>
+            <div class="col-sm-12 result">
+                <div>RESULT:</div>
+                <div></div>
+            </div>
             <div class="col-sm-12">
             <div class="accordion accordion-flush" id="accordionExample">
                 <div class="accordion-item  bg-dark">
