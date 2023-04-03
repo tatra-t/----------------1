@@ -1,19 +1,33 @@
 'use strict';
-function viewDiv(){
-  document.querySelector(".result").style.display = "block";
+
+function viewResultField(){
+  viewResult.style.display = "block";
 };
-//надо привязать к кнопке culculate
 
 
 
-let start = document.querySelector(".start");
-let end = document.querySelector(".end");
+
+
+
+let start = document.querySelector(".inputStart");
+let end = document.querySelector(".inputEnd");
+let selectedDays = document.querySelector(".selectedDays"); 
 let dimension = document.querySelector(".dimension");
+let calculate = document.querySelector(".calculate");
+let viewResult = document.querySelector(".viewResult");
+
+
+console.log("start", start.value);
+console.log("end", end);
+console.log("selectedDay", selectedDays);
+
 function durationBetweenDates(
-  start = new Date(),
-  end = new Date(),
-  dimension = "days"
+  start,
+  end,
+  selectedDays, 
+  dimension
 ) {
+  if (selectedDays === "0") {
   const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
   const HOUR_IN_MILLISECONDS = 60 * 60 * 1000;
   const MIN_IN_MILLISECONDS = 60 * 1000;
@@ -21,7 +35,8 @@ function durationBetweenDates(
   const startDate = Date.parse(start);
   const endDate = Date.parse(end);
   let resultMillisec = Math.abs(startDate - endDate);
-  let result;
+    let result;
+    console.log(resultMillisec);
   switch (dimension) {
     case "seconds":
       result = resultMillisec / SEC_IN_MILLISECONDS;
@@ -36,7 +51,11 @@ function durationBetweenDates(
       result = resultMillisec / DAY_IN_MILLISECONDS;
       break;
   }
-  console.log(`${result} ${dimension}`);
-  return `${result} ${dimension}`;
+    console.log(`${result} ${dimension}`);
+    return `${result} ${dimension}`;
+    }
 }
-durationBetweenDates();
+
+
+calculate.addEventListener('click', viewResultField);// появляется поле резалт
+calculate.addEventListener('click', durationBetweenDates);//сам подсчет
