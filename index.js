@@ -9,18 +9,37 @@ function viewResultField(){
 
 
 
-let start = document.querySelector(".inputStart");
-let end = document.querySelector(".inputEnd");
-let selectedDays = document.querySelector(".selectedDays"); 
-let dimension = document.querySelector(".dimension");
+let inputStart = document.querySelector(".inputStart");
+let inputEnd = document.querySelector(".inputEnd");
+let inputSelectedDays = document.querySelector(".selectedDays"); 
+let inputDimension = document.querySelector(".dimension");
+let inputPreset = document.querySelector(".preset")
 let calculate = document.querySelector(".calculate");
 let viewResult = document.querySelector(".viewResult");
 
+calculate.addEventListener("click", () => {
+ let start = inputStart.value;
+  console.log(start);
+  return start;
+})
+calculate.addEventListener("click", () => {
+ let end = inputEnd.value;
+  console.log(end);
+  return end;
+})
+calculate.addEventListener("click", () => {
+ let selectedDays = inputSelectedDays.value;
+  console.log(selectedDays);
+  return selectedDays;
+})
+calculate.addEventListener("click", () => {
+ let dimension = inputDimension.value;
+  console.log(dimension);
+  return dimension;
+})
 
-console.log("start", start.value);
-console.log("end", end);
-console.log("selectedDay", selectedDays);
 
+/*
 function durationBetweenDates(
   start,
   end,
@@ -59,3 +78,4 @@ function durationBetweenDates(
 
 calculate.addEventListener('click', viewResultField);// появляется поле резалт
 calculate.addEventListener('click', durationBetweenDates);//сам подсчет
+*/
