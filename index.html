@@ -40,18 +40,18 @@
                 <div class="col-sm">
                     <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light selectedDays" aria-label=".form-select-sm example">
                         <option selected>choose days</option>
-                        <option value="1">all days</option>
-                        <option value="2">weekdays</option>
-                        <option value="3">weekends</option>
+                        <option value="allDay">all days</option>
+                        <option value="weekdays">weekdays</option>
+                        <option value="weekends">weekends</option>
                     </select>
                 </div>
                 <div class="col-sm">
                     <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light dimension" aria-label=".form-select-sm example">
                         <option selected>what to calculate</option>
-                        <option value="1">days</option>
-                        <option value="2">hours</option>
-                        <option value="3">minuts</option>
-                        <option value="4">seconds</option>
+                        <option value="days">days</option>
+                        <option value="hours">hours</option>
+                        <option value="minuts">minuts</option>
+                        <option value="seconds">seconds</option>
                     </select>
                 </div>
             </div>
@@ -87,12 +87,12 @@
                                                 <th scope="col">RESULT</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody class="tableLocal">
+                                            <tr class = "tableLocalTr">
                                                 <th scope="row">1</th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="startLocal"></td>
+                                                <td class = "endLocal"></td>
+                                                <td class = "resultLocal"></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
