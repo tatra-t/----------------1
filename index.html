@@ -23,6 +23,17 @@
                     <span class="text-light me-2 ">START</span>
                     <input class = "bg-dark text-light mt-3 mb-3 inputStart " type="date" name="start" id="start" value="">
                 </div>
+                <div class="col-sm-2 presets">
+                    <span class=" text-light preset"></span>
+                    <input type="radio" name="preset" id="none">
+                    <label class="text-light" for="week">none</label>
+                    <br>
+                    <input type="radio" name="preset" id="week">
+                    <label class="text-light" for="week">week</label>
+                     <br>
+                    <input type="radio" name="preset" id="month">
+                    <label class="text-light" for="week">month</label>
+                </div>
                 <div class="col-sm">
                     <span class="text-light me-4 "> END </span>
                     <input class="bg-dark text-light mt-3 mb-3 inputEnd" type="date" name="end" id="end" value="" disabled>
@@ -30,14 +41,6 @@
                 <p class="text-light col-sm-12 dateEnd" >End date must be greater than start date</p>
             </div>
             <div class="row">
-                <div class="col-sm">
-                    <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light preset"
-                        aria-label=".form-select-sm example">
-                        <option selected>what to </option>
-                        <option value="1">week</option>
-                        <option value="2">month</option>
-                    </select>
-                </div>
                 <div class="col-sm">
                     <select class="form-select form-select-sm mt-3 mb-3 bg-dark text-light selectedDays" aria-label=".form-select-sm example">
                         <option selected>choose days</option>

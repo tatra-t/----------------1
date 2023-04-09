@@ -11,7 +11,12 @@ let startForLocal = document.querySelector(".startLocal");
 let endForLocal = document.querySelector(".endLocal");
 let resultForLocal = document.querySelector(".resultLocal");
 let tableLocal = document.querySelector(".tableLocal");
-let dateEnd = document.querySelector(".dateEnd")
+let dateEnd = document.querySelector(".dateEnd");
+let persetWeek = document.querySelector('#week');
+let persetMonth = document.querySelector("#month");
+let persetNone = document.querySelector('#none');
+
+
 
 inputStart.addEventListener("change", () => {
   inputEnd.disabled = false;
@@ -25,6 +30,22 @@ inputEnd.addEventListener("change", () => {
     dateEnd.style.display = "none";
   }
 })
+persetWeek.addEventListener("change", () => {
+  let d = new Date(inputStart.value);
+  let inputEndTemp = new Date(d.setDate(d.getDate() + 7));
+  inputEnd.value = formatDate(inputEndTemp);
+  console.log("inputEnd", inputEndTemp)
+})
+persetMonth.addEventListener("change", () => {
+  let d = new Date(inputStart.value);
+  let inputEndTemp = new Date(d.setMonth(d.getMonth() + 1));
+  inputEnd.value = formatDate(inputEndTemp);
+  console.log(inputEnd.value);
+})
+persetNone.addEventListener("change", () => {
+  inputEnd.value = "";
+} )
+
 
 calculate.addEventListener("click", () => {
   let startLocal = inputStart.value;
@@ -125,3 +146,18 @@ function viewResultField() {
   viewResult.style.display = "block";
 };
 calculate.addEventListener('click', viewResultField);// появляется поле резалт
+
+function formatDate(inputEndTemp) {
+  const date = new Date(inputEndTemp);
+  let DD = date.getDate();
+   if (DD <10) { 
+    DD = "0"+ DD;
+  }
+  let MO = date.getMonth() + 1;
+  if (MO <10) { 
+    MO = "0"+ MO;
+  }
+  let YYYY= date.getFullYear();
+  let inputEnd = YYYY + "-" + MO + "-" + DD ;
+  return inputEnd;
+}

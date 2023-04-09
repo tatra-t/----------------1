@@ -34,18 +34,27 @@ select,
 }
 .viewResult {
     background-color: white;
-    height: 70px;
+    height: 50px;
     font-size: 30px;
     border-radius: 3px;
-    padding-top: 10px;
+    padding-top: 3px;
     display: none;
 }
 .inputEnd:disabled {
     border-color: blue;
+    
 }
 .dateEnd{
     display: none;
     
+}
+.presets {
+    text-align: left;
+    margin-left: 20px;
+}
+#week, #month,#none{
+    width: 20px;
+    height: 20px;
 }
     @media (max-width: 375px) {
  body {
