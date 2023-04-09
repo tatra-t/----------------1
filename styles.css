@@ -43,7 +43,11 @@ select,
 .inputEnd:disabled {
     border-color: blue;
 }
-@media (max-width: 375px) {
+.dateEnd{
+    display: none;
+    
+}
+    @media (max-width: 375px) {
  body {
     font-size: 12px;
  }   

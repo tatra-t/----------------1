@@ -11,9 +11,19 @@ let startForLocal = document.querySelector(".startLocal");
 let endForLocal = document.querySelector(".endLocal");
 let resultForLocal = document.querySelector(".resultLocal");
 let tableLocal = document.querySelector(".tableLocal");
+let dateEnd = document.querySelector(".dateEnd")
 
 inputStart.addEventListener("change", () => {
   inputEnd.disabled = false;
+})
+inputEnd.addEventListener("change", () => {
+  if (Date.parse(inputEnd.value) < Date.parse(inputStart.value)) {
+    calculate.disabled = true;
+    dateEnd.style.display = "block";
+  } else {
+    calculate.disabled = false;
+    dateEnd.style.display = "none";
+  }
 })
 
 calculate.addEventListener("click", () => {
