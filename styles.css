@@ -40,6 +40,9 @@ select,
     padding-top: 10px;
     display: none;
 }
+.inputEnd:disabled {
+    border-color: blue;
+}
 @media (max-width: 375px) {
  body {
     font-size: 12px;

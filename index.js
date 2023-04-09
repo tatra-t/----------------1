@@ -12,7 +12,9 @@ let endForLocal = document.querySelector(".endLocal");
 let resultForLocal = document.querySelector(".resultLocal");
 let tableLocal = document.querySelector(".tableLocal");
 
-
+inputStart.addEventListener("change", () => {
+  inputEnd.disabled = false;
+})
 
 calculate.addEventListener("click", () => {
   let startLocal = inputStart.value;
