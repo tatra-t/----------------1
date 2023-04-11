@@ -1,5 +1,8 @@
 'use strict';
-
+const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
+const HOUR_IN_MILLISECONDS = 60 * 60 * 1000;
+const MIN_IN_MILLISECONDS = 60 * 1000;
+const SEC_IN_MILLISECONDS = 1000;
 let inputStart = document.querySelector(".inputStart");
 let inputEnd = document.querySelector(".inputEnd");
 let inputSelectedDays = document.querySelector(".selectedDays"); 
@@ -15,7 +18,8 @@ let dateEnd = document.querySelector(".dateEnd");
 let persetWeek = document.querySelector('#week');
 let persetMonth = document.querySelector("#month");
 let persetNone = document.querySelector('#none');
-
+let dimension = inputDimension.value;
+let result;
 
 
 inputStart.addEventListener("change", () => {
@@ -44,9 +48,13 @@ persetMonth.addEventListener("change", () => {
 })
 persetNone.addEventListener("change", () => {
   inputEnd.value = "";
-} )
+})
 
+if (inputStart.value === "" || inputEnd.value === "" || inputSelectedDays.value === "choose days" || inputDimension.value ==="what to calculate") {
+  calculate.disabled = true;
+}
 
+console.log(inputDimension);
 calculate.addEventListener("click", () => {
   let startLocal = inputStart.value;
   localStorage.setItem("start", startLocal);
@@ -61,78 +69,47 @@ calculate.addEventListener("click", () => {
   if (selectedDays === "allDay") {
     switch (dimension) {
       case "seconds":
-        result = `${resultMillisec / 1000 +86400} SECONDS`;
+        result = `${resultMillisec / SEC_IN_MILLISECONDS} SECONDS`;
         break;
       case "minuts":
-        result = `${resultMillisec / 60000+1440} MINUTS`;
+        result = `${resultMillisec / MIN_IN_MILLISECONDS} MINUTS`;
         break;
       case "hours":
-        result = `${resultMillisec / 3600000 +24} HOURS`;
+        result = `${resultMillisec / HOUR_IN_MILLISECONDS} HOURS`;
         break;
       case "days":
-        result = `${resultMillisec / 86400000 +1} DAYS`;
+        result = `${resultMillisec / DAY_IN_MILLISECONDS} DAYS`;
         break;
     }
     viewResult.innerHTML = `RESULT: ${result}`;
-    //return result;
   }
   if (selectedDays === "weekends") {
     let resultDay = resultMillisec / 86400000;
-    let weekend = 0;
+    let day = 0;
     let currentlyDay;
     let getday = new Date();
     for (let i = 0; i <= resultDay; i++) {
       getday.setTime(start + 86400000 * i);
       currentlyDay = getday.getDay();
       if (currentlyDay === 0 || currentlyDay === 6) {
-        weekend++;
+        day++;
       }
     }
-    switch (dimension) {
-      case "seconds":
-        result = `${weekend * 86400} SECONDS`;
-        break;
-      case "minuts":
-        result = `${weekend * 1440} MINUTS`;
-        break;
-      case "hours":
-        result = `${weekend * 24} HOURS`;
-        break;
-      case "days":
-        result = `${weekend} DAYS`;
-        break;
-    }
-    viewResult.innerHTML = `RESULT: ${result}`;
-    //return result;
+    convertTime(day);
   }
   if (selectedDays === "weekdays") {
     let resultDay = resultMillisec / 86400000;
-    let weekday = 0;
+    let day = 0;
     let currentlyDay;
     let getday = new Date();
     for (let i = 0; i <= resultDay; i++) {
       getday.setTime(start + 86400000 * i);
       currentlyDay = getday.getDay();
       if (currentlyDay === 1 || currentlyDay === 2 || currentlyDay === 3|| currentlyDay === 4|| currentlyDay === 5) {
-        weekday++;
+        day++;
       }
     }
-    switch (dimension) {
-      case "seconds":
-        result = `${weekday * 86400} SECONDS`;
-        break;
-      case "minuts":
-        result = `${weekday * 1440} MINUTS`;
-        break;
-      case "hours":
-        result = `${weekday * 24} HOURS`;
-        break;
-      case "days":
-        result = `${weekday} DAYS`;
-        break;
-    }
-    viewResult.innerHTML = `RESULT: ${result}`;
-   // return result;
+    convertTime(day);
   }
   localStorage.setItem("result", result);
 })
@@ -160,4 +137,25 @@ function formatDate(inputEndTemp) {
   let YYYY= date.getFullYear();
   let inputEnd = YYYY + "-" + MO + "-" + DD ;
   return inputEnd;
+}
+
+function convertTime(day) {
+  console.log(day);
+  switch (inputDimension.value) {
+    
+    case "seconds":
+      result = `${day * 86400} SECONDS`;
+      break;
+    case "minuts":
+      result = `${day * 1440} MINUTS`;
+      break;
+    case "hours":
+      result = `${day * 24} HOURS`;
+      break;
+    case "days":
+      result = `${day} DAYS`;
+      break;
+  }
+  viewResult.innerHTML = `RESULT: ${result}`;
+  return result;
 }

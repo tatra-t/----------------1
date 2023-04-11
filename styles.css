@@ -35,13 +35,13 @@ select,
 .viewResult {
     background-color: white;
     height: 50px;
-    font-size: 30px;
+    font-size: 24px;
     border-radius: 3px;
-    padding-top: 3px;
+    padding-top: 5px;
     display: none;
 }
 .inputEnd:disabled {
-    border-color: blue;
+    border-color: rgb(107, 107, 107);
     
 }
 .dateEnd{
