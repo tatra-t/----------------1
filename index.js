@@ -117,8 +117,8 @@ startForLocal.innerHTML = localStorage.getItem("start");
 endForLocal.innerHTML = localStorage.getItem("end");
 resultForLocal.innerHTML = localStorage.getItem("result");
 let newline = document.createElement("tr");
-newline.innerHTML = `<th scope="row">2</th> <td>${localStorage.getItem("start")}</td><td>${localStorage.getItem("end")}</td><td>${localStorage.getItem("result")}</td>`; 
-
+newline.innerHTML = `<th scope="row"></th> <td>${localStorage.getItem("start")}</td><td>${localStorage.getItem("end")}</td><td>${localStorage.getItem("result")}</td>`;
+console.log(newline);
 function viewResultField() {
   viewResult.style.display = "block";
 };
@@ -157,5 +157,6 @@ function convertTime(day) {
       break;
   }
   viewResult.innerHTML = `RESULT: ${result}`;
+  localStorage.setItem("result", result);
   return result;
 }
