@@ -18,6 +18,7 @@ let dateEnd = document.querySelector(".dateEnd");
 let persetWeek = document.querySelector('#week');
 let persetMonth = document.querySelector("#month");
 let persetNone = document.querySelector('#none');
+let clear = document.querySelector('.clear');
 let dimension = inputDimension.value;
 let result;
 
@@ -50,11 +51,15 @@ persetNone.addEventListener("change", () => {
   inputEnd.value = "";
 })
 
-if (inputStart.value === "" || inputEnd.value === "" || inputSelectedDays.value === "choose days" || inputDimension.value ==="what to calculate") {
+if (inputStart.value === "" || inputEnd.value === "") {
   calculate.disabled = true;
 }
+clear.addEventListener('click', () => {
+  inputStart.value ="";
+  inputEnd.value = "";
+  inputEnd.disabled = true;
+})
 
-console.log(inputDimension);
 calculate.addEventListener("click", () => {
   let startLocal = inputStart.value;
   localStorage.setItem("start", startLocal);
