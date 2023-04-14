@@ -21,6 +21,7 @@ let persetNone = document.querySelector('#none');
 let clear = document.querySelector('.clear');
 let dimension = inputDimension.value;
 let result;
+let resultLocalStorage = [];
 
 
 inputStart.addEventListener("change", () => {
@@ -61,10 +62,6 @@ clear.addEventListener('click', () => {
 })
 
 calculate.addEventListener("click", () => {
-  let startLocal = inputStart.value;
-  localStorage.setItem("start", startLocal);
-  let endLocal = inputEnd.value; 
-  localStorage.setItem("end", endLocal);
   let start = Date.parse(inputStart.value);
   let end = Date.parse(inputEnd.value);
   let selectedDays = inputSelectedDays.value;
@@ -101,6 +98,8 @@ calculate.addEventListener("click", () => {
       }
     }
     convertTime(day);
+    console.log(result);
+    viewResult.innerHTML = `RESULT: ${result}`;
   }
   if (selectedDays === "weekdays") {
     let resultDay = resultMillisec / 86400000;
@@ -115,15 +114,27 @@ calculate.addEventListener("click", () => {
       }
     }
     convertTime(day);
+    viewResult.innerHTML = `RESULT: ${result}`;
   }
-  localStorage.setItem("result", result);
-})
-startForLocal.innerHTML = localStorage.getItem("start");
-endForLocal.innerHTML = localStorage.getItem("end");
-resultForLocal.innerHTML = localStorage.getItem("result");
+  
+
+  let resultStorage = {
+    startStorage: inputStart.value,
+    endStorage: inputEnd.value,
+    result: result,
+  
+}
+  console.log(resultStorage);
+  
+localStorage.setItem("result", JSON.stringify(resultStorage));
+  
+
 let newline = document.createElement("tr");
-newline.innerHTML = `<th scope="row"></th> <td>${localStorage.getItem("start")}</td><td>${localStorage.getItem("end")}</td><td>${localStorage.getItem("result")}</td>`;
-console.log(newline);
+newline.innerHTML = `<th scope="row"></th> <td>${resultStorage.startStorage}</td><td>${resultStorage.endStorage}</td><td>${resultStorage.result}</td>`;
+    tableLocal.prepend(newline);
+    console.log(newline);
+})
+
 function viewResultField() {
   viewResult.style.display = "block";
 };
@@ -145,9 +156,7 @@ function formatDate(inputEndTemp) {
 }
 
 function convertTime(day) {
-  console.log(day);
   switch (inputDimension.value) {
-    
     case "seconds":
       result = `${day * 86400} SECONDS`;
       break;
@@ -161,7 +170,6 @@ function convertTime(day) {
       result = `${day} DAYS`;
       break;
   }
-  viewResult.innerHTML = `RESULT: ${result}`;
-  localStorage.setItem("result", result);
+  console.log(result);
   return result;
 }
