@@ -97,7 +97,7 @@ calculate.addEventListener("click", () => {
         day++;
       }
     }
-    convertTime(day);
+    result = convertTime(day);
     console.log(result);
     viewResult.innerHTML = `RESULT: ${result}`;
   }
@@ -113,7 +113,7 @@ calculate.addEventListener("click", () => {
         day++;
       }
     }
-    convertTime(day);
+    result = convertTime(day);
     viewResult.innerHTML = `RESULT: ${result}`;
   }
   
