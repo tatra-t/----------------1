@@ -21,8 +21,8 @@ let persetNone = document.querySelector('#none');
 let clear = document.querySelector('.clear');
 let dimension = inputDimension.value;
 let result;
-let resultLocalStorage = [];
-
+let resultData = [];
+let j = 0;
 
 inputStart.addEventListener("change", () => {
   inputEnd.disabled = false;
@@ -117,23 +117,28 @@ calculate.addEventListener("click", () => {
     viewResult.innerHTML = `RESULT: ${result}`;
   }
   
-
+  
   let resultStorage = {
     startStorage: inputStart.value,
     endStorage: inputEnd.value,
     result: result,
+  }
+  resultData.push(resultStorage);
+   
+  localStorage.setItem("result", JSON.stringify(resultData));
   
-}
-  console.log(resultStorage);
-  
-localStorage.setItem("result", JSON.stringify(resultStorage));
-  
-
-let newline = document.createElement("tr");
-newline.innerHTML = `<th scope="row"></th> <td>${resultStorage.startStorage}</td><td>${resultStorage.endStorage}</td><td>${resultStorage.result}</td>`;
+  let newLineData = JSON.parse(localStorage.getItem('result'));
+  console.log(newLineData[0].startStorage);
+  addNewLine();
+  function addNewLine() {
+    let newline = document.createElement("tr");
+    newline.innerHTML = `<th scope="row">${j + 1}</th> <td>${newLineData[j].startStorage}</td><td>${newLineData[j].endStorage}</td><td>${newLineData[j].result}</td>`;
     tableLocal.prepend(newline);
-    console.log(newline);
+    j++;
+  }
 })
+
+
 
 function viewResultField() {
   viewResult.style.display = "block";
