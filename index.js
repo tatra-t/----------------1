@@ -24,6 +24,16 @@ let result;
 let resultData = [];
 let j = 0;
 
+if (localStorage.getItem('result') !== null) {
+  resultData = JSON.parse(localStorage.getItem('result'));
+  for (j = 0; j < resultData.length; j++) {
+    let newline = document.createElement("tr");
+    newline.className = `${j}`;
+    newline.innerHTML = `<th scope="row">${j + 1}</th> <td>${resultData[j].startStorage}</td><td>${resultData[j].endStorage}</td><td>${resultData[j].result}</td>`;
+    tableLocal.prepend(newline);
+  } 
+} 
+
 inputStart.addEventListener("change", () => {
   inputEnd.disabled = false;
 })
@@ -116,29 +126,32 @@ calculate.addEventListener("click", () => {
     result = convertTime(day);
     viewResult.innerHTML = `RESULT: ${result}`;
   }
-  
-  
   let resultStorage = {
     startStorage: inputStart.value,
     endStorage: inputEnd.value,
     result: result,
   }
-  resultData.push(resultStorage);
-   
-  localStorage.setItem("result", JSON.stringify(resultData));
   
+  if (resultData.length >= 10) {
+    resultData.shift();
+  }
+  resultData.push(resultStorage);
+
+  localStorage.setItem("result", JSON.stringify(resultData));
+  console.log(resultData);
+  console.log();
   let newLineData = JSON.parse(localStorage.getItem('result'));
-  console.log(newLineData[0].startStorage);
-  addNewLine();
-  function addNewLine() {
+  if (result.length <= 10) {
     let newline = document.createElement("tr");
+    newline.className = `${j}`;
     newline.innerHTML = `<th scope="row">${j + 1}</th> <td>${newLineData[j].startStorage}</td><td>${newLineData[j].endStorage}</td><td>${newLineData[j].result}</td>`;
     tableLocal.prepend(newline);
     j++;
+  } else {
+    
   }
+  
 })
-
-
 
 function viewResultField() {
   viewResult.style.display = "block";
@@ -178,3 +191,11 @@ function convertTime(day) {
   console.log(result);
   return result;
 }
+
+
+/*if (j >= 11) {
+    let removeline = document.getElementsByClassName(j-11);
+    for (let k = 0; k <= removeline.length; k++) {
+    removeline[k].remove();
+     }
+  }*/
