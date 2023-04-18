@@ -106,8 +106,6 @@ const storeResultInLocalStorage = (result) => {
 };
 
 calculate.addEventListener("click", () => {
-  let start = Date.parse(inputStart.value);
-  let end = Date.parse(inputEnd.value);
   let selectedDays = inputSelectedDays.value;
   let dimension = inputDimension.value;
   let resultMillisec = Date.parse(inputEnd.value) - Date.parse(inputStart.value);
