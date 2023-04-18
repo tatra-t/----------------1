@@ -22,19 +22,8 @@ let clear = document.querySelector(".clear");
 let dimension = inputDimension.value;
 let result;
 let resultData = [];
-let j = 0;
 
-if (localStorage.getItem("result") !== null) {
-  resultData = JSON.parse(localStorage.getItem("result"));
-  for (j = 0; j < resultData.length; j++) {
-    let newline = document.createElement("tr");
-    newline.className = `${j}`;
-    newline.innerHTML = `<th scope="row">${j + 1}</th> <td>${
-      resultData[j].startStorage
-    }</td><td>${resultData[j].endStorage}</td><td>${resultData[j].result}</td>`;
-    tableLocal.prepend(newline);
-  }
-}
+
 
 inputStart.addEventListener("change", () => {
   inputEnd.disabled = false;
@@ -53,12 +42,14 @@ persetWeek.addEventListener("change", () => {
   let inputEndTemp = new Date(d.setDate(d.getDate() + 7));
   inputEnd.value = formatDate(inputEndTemp);
   console.log("inputEnd", inputEndTemp);
+  inputEnd.disabled = false;
 });
 persetMonth.addEventListener("change", () => {
   let d = new Date(inputStart.value);
   let inputEndTemp = new Date(d.setMonth(d.getMonth() + 1));
   inputEnd.value = formatDate(inputEndTemp);
   console.log(inputEnd.value);
+  inputEnd.disabled = false;
 });
 persetNone.addEventListener("change", () => {
   inputEnd.value = "";
@@ -90,6 +81,9 @@ const renderHistoryTable = () => {
     tableLocal.prepend(newline);
   });
 };
+if (localStorage.getItem("result") !== null) {
+  renderHistoryTable();
+}
 
 // Функція для збереження нового елементу у масив localStorage
 const storeResultInLocalStorage = (result) => {
@@ -116,7 +110,7 @@ calculate.addEventListener("click", () => {
   let end = Date.parse(inputEnd.value);
   let selectedDays = inputSelectedDays.value;
   let dimension = inputDimension.value;
-  let resultMillisec = end - start;
+  let resultMillisec = Date.parse(inputEnd.value) - Date.parse(inputStart.value);
   let result;
   if (selectedDays === "allDay") {
     switch (dimension) {
@@ -136,42 +130,15 @@ calculate.addEventListener("click", () => {
     viewResult.innerHTML = `RESULT: ${result}`;
   }
   if (selectedDays === "weekends") {
-    let resultDay = resultMillisec / 86400000;
-    let day = 0;
-    let currentlyDay;
-    let getday = new Date();
-    for (let i = 0; i <= resultDay; i++) {
-      getday.setTime(start + 86400000 * i);
-      currentlyDay = getday.getDay();
-      if (currentlyDay === 0 || currentlyDay === 6) {
-        day++;
-      }
-    }
-    result = convertTime(day);
-    console.log(result);
+    result = convertTime(isWeekend(true));
     viewResult.innerHTML = `RESULT: ${result}`;
-  }
+    }
+  
   if (selectedDays === "weekdays") {
-    let resultDay = resultMillisec / 86400000;
-    let day = 0;
-    let currentlyDay;
-    let getday = new Date();
-    for (let i = 0; i <= resultDay; i++) {
-      getday.setTime(start + 86400000 * i);
-      currentlyDay = getday.getDay();
-      if (
-        currentlyDay === 1 ||
-        currentlyDay === 2 ||
-        currentlyDay === 3 ||
-        currentlyDay === 4 ||
-        currentlyDay === 5
-      ) {
-        day++;
-      }
-    }
-    result = convertTime(day);
+    result = convertTime(isWeekend(false));
     viewResult.innerHTML = `RESULT: ${result}`;
-  }
+    }
+
 
   // Збереженно у localStorage та малювання таблиці
   // 1. Зберігти дані у localStorage і у цьому пункті ще і перевірити чи вже досягнений ліміт у 10 результатів
@@ -217,4 +184,25 @@ function convertTime(day) {
   }
   console.log(result);
   return result;
+}
+function isWeekend(m) {
+  let resultDay = (Date.parse(inputEnd.value) - Date.parse(inputStart.value)) / DAY_IN_MILLISECONDS;
+  let weekday = 0;
+  let weekend = 0;
+  let currentlyDay;
+  let getday = new Date();
+  for (let i = 0; i <= resultDay; i++) {
+    getday.setTime(Date.parse(inputStart.value) + DAY_IN_MILLISECONDS * i);
+    currentlyDay = getday.getDay();
+    if (currentlyDay === 0 || currentlyDay === 6) {
+      weekend++;
+    } else {
+      weekday++;
+    }
+  }
+  if (m === false) {
+    return weekday;
+  } else {
+    return weekend;
+  }  
 }
