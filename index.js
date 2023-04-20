@@ -131,12 +131,12 @@ calculate.addEventListener("click", () => {
     viewResult.innerHTML = `RESULT: ${result}`;
   }
   if (selectedDays === "weekends") {
-    result = convertTime(isWeekend(true));
+    result = convertTime(countWeekendsDays(inputStart.value, inputEnd.value));
     viewResult.innerHTML = `RESULT: ${result}`;
     }
   
   if (selectedDays === "weekdays") {
-    result = convertTime(isWeekend(false));
+    result = convertTime(countWeekdaysDays(inputStart.value, inputEnd.value));
     viewResult.innerHTML = `RESULT: ${result}`;
     }
 
@@ -186,24 +186,46 @@ function convertTime(day) {
   console.log(result);
   return result;
 }
-function isWeekend(m) {
-  let resultDay = (Date.parse(inputEnd.value) - Date.parse(inputStart.value)) / DAY_IN_MILLISECONDS;
-  let weekday = 0;
-  let weekend = 0;
-  let currentlyDay;
-  let getday = new Date();
+
+function isWeekend(date) {
+  const dayOfWeek = new Date(date).getDay();
+  return dayOfWeek === 0 || dayOfWeek === 6;
+}
+function countWeekendsDays(start, end) {
+  let resultMillisec = new Date(end) - new Date(start);
+  let resultDay = resultMillisec / DAY_IN_MILLISECONDS;
+
+  let day = 0;
+
   for (let i = 0; i <= resultDay; i++) {
-    getday.setTime(Date.parse(inputStart.value) + DAY_IN_MILLISECONDS * i);
-    currentlyDay = getday.getDay();
-    if (currentlyDay === 0 || currentlyDay === 6) {
-      weekend++;
-    } else {
-      weekday++;
+    const newDate = new Date();
+    newDate.setTime(Date.parse(start) + DAY_IN_MILLISECONDS * i);
+
+    if (isWeekend(newDate)) {
+      day++;
     }
   }
-  if (m === false) {
-    return weekday;
-  } else {
-    return weekend;
-  }  
+
+  // Поверне кількість вихідних днів (дивись на умову)
+  return day;
+}
+
+function countWeekdaysDays(start, end) {
+  let resultMillisec = new Date(end) - new Date(start);
+  let resultDay = resultMillisec / DAY_IN_MILLISECONDS;
+
+  let day = 0;
+
+  for (let i = 0; i <= resultDay; i++) {
+    const newDate = new Date();
+    newDate.setTime(Date.parse(start) + DAY_IN_MILLISECONDS * i);
+
+    // Тут ми пишемо НЕ вихідні дні
+    if (!isWeekend(newDate)) {
+      day++;
+    }
+  }
+
+  // Поверне кількість робочих днів (дивись на умову)
+  return day;
 }
