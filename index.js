@@ -3,6 +3,9 @@ const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
 const HOUR_IN_MILLISECONDS = 60 * 60 * 1000;
 const MIN_IN_MILLISECONDS = 60 * 1000;
 const SEC_IN_MILLISECONDS = 1000;
+const SECONDS_IN_DAY = 86400;
+const MINUTES_IN_DAY = 1440;
+const HOURS_IN_DAY = 24;
 let inputStart = document.querySelector(".inputStart");
 let inputEnd = document.querySelector(".inputEnd");
 let inputSelectedDays = document.querySelector(".selectedDays");
@@ -168,13 +171,13 @@ function formatDate(inputEndTemp) {
 function convertTime(day) {
   switch (inputDimension.value) {
     case "seconds":
-      result = `${day * 86400} SECONDS`;
+      result = `${day * SECONDS_IN_DAY} SECONDS`;
       break;
     case "minuts":
-      result = `${day * 1440} MINUTS`;
+      result = `${day * MINUTES_IN_DAY} MINUTS`;
       break;
     case "hours":
-      result = `${day * 24} HOURS`;
+      result = `${day * HOURS_IN_DAY} HOURS`;
       break;
     case "days":
       result = `${day} DAYS`;
